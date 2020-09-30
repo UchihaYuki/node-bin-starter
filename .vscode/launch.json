@@ -18,7 +18,8 @@
             ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
-                "<node_internals>/**"
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**"
             ],
             "preLaunchTask": "npm: build-test",
             "sourceMaps": true,
@@ -30,6 +31,10 @@
             "name": "Debug src",
             "program": "${workspaceFolder}\\src\\index.js",
             "preLaunchTask": "npm: build-src",
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**"
+            ],
         }
     ]
 }

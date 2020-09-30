@@ -54,11 +54,11 @@ gulp.task("build:src-release", () => gulp
     .pipe(gulp.dest(".tmp")));
 
 gulp.task('pkg', function (cb) {
-    shell.exec('pkg -t node8-linux-x64 -o dist/server .')
+    shell.exec('pkg -t node12-linux-x64 -o dist/bin .')
     cb();
 })
 
 gulp.task('postpkg', () => del(['.tmp']))
 
 gulp.task("test", gulp.series("clean", "build:src", "build:test", "run:test"));
-gulp.task("dist", gulp.series("test", "build:src-release", "pkg", 'postpkg'))
+gulp.task("bin", gulp.series("test", "build:src-release", "pkg", 'postpkg'))
