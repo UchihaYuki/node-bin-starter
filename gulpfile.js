@@ -81,7 +81,7 @@ gulp.task('push', function (cb) {
     }
 
     shell.exec(`git add .`)
-    shell.exec(`git commit -m ${argv.m}`)
+    shell.exec(`git commit -m ${message}`)
     shell.exec(`git push`)
     cb();
 })
