@@ -7,6 +7,17 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Debug src",
+            "program": "${workspaceFolder}\\src\\index.js",
+            "preLaunchTask": "gulp: build:src",
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**"
+            ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Debug test",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
@@ -21,20 +32,9 @@
                 "<node_internals>/**",
                 "${workspaceFolder}/node_modules/**"
             ],
-            "preLaunchTask": "npm: build-test",
+            "preLaunchTask": "gulp: build:test",
             "sourceMaps": true,
             "outFiles": ["${workspaceFolder}/test/**/*.js"]
         },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug src",
-            "program": "${workspaceFolder}\\src\\index.js",
-            "preLaunchTask": "npm: build-src",
-            "skipFiles": [
-                "<node_internals>/**",
-                "${workspaceFolder}/node_modules/**"
-            ],
-        }
     ]
 }
