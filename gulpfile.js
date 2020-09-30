@@ -5,6 +5,7 @@ const mocha = require('gulp-mocha');
 const del = require('del');
 const shell = require('shelljs');
 const sourcemaps = require('gulp-sourcemaps')
+const argv = require('yargs').argv
 
 const src = ts.createProject("src/tsconfig.json");
 const srcRelease = ts.createProject("src/tsconfig-release.json");
@@ -62,3 +63,14 @@ gulp.task('postpkg', () => del(['.tmp']))
 
 gulp.task("test", gulp.series("clean", "build:src", "build:test", "run:test"));
 gulp.task("bin", gulp.series("test", "build:src-release", "pkg", 'postpkg'))
+
+gulp.task('push', function (cb) {
+    if (!argv.m) {
+        return cb(new Error("lack commit message: gulp push -m <msg>"))
+    }
+
+    shell.exec(`git add .`)
+    shell.exec(`git commit -m ${argv.m}`)
+    shell.exec(`git push`)
+    cb();
+})
