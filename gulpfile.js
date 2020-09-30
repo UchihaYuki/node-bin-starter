@@ -15,6 +15,7 @@ const test = ts.createProject("test/tsconfig.json");
 const starter = "node-bin-starter";
 
 gulp.task("clean", () => del([
+    ".tmp",
     "dist",
     "src/**/*.js",
     "src/**/*.js.map",
@@ -65,7 +66,7 @@ gulp.task('pkg', function (cb) {
 gulp.task('postpkg', () => del(['.tmp']))
 
 gulp.task("test", gulp.series("clean", "build:src", "build:test", "run:test"));
-gulp.task("bin", gulp.series("test", "build:src-release", "pkg", 'postpkg'))
+gulp.task("build", gulp.series("test", "build:src-release", "pkg", 'postpkg'))
 
 gulp.task('push', function (cb) {
     // if (!argv.m) {
