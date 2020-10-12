@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug src",
             "program": "${workspaceFolder}\\src\\index.js",
-            "preLaunchTask": "gulp: build:src",
+            "preLaunchTask": "gulp: debug:src",
             "skipFiles": [
                 "<node_internals>/**",
                 "${workspaceFolder}/node_modules/**"
@@ -32,7 +32,7 @@
                 "<node_internals>/**",
                 "${workspaceFolder}/node_modules/**"
             ],
-            "preLaunchTask": "gulp: build:test",
+            "preLaunchTask": "gulp: debug:test",
             "sourceMaps": true,
             "outFiles": ["${workspaceFolder}/test/**/*.js"]
         },

@@ -42,6 +42,12 @@ gulp.task("run:test", () => gulp
     .src(["test/**/*.js"], { read: false })
     .pipe(mocha({ reporter: "spec", timeout: 30000 })));
 
+gulp.task("copy:assets", () => gulp
+    .src([
+        "src/assets/*",
+    ])
+    .pipe(gulp.dest(".tmp/assets")));
+
 gulp.task("build:src-release", () => gulp
     .src([
         "src/**/*.ts",
@@ -64,9 +70,6 @@ gulp.task('pkg', function (cb) {
 })
 
 gulp.task('postpkg', () => del(['.tmp']))
-
-gulp.task("test", gulp.series("clean", "build:src", "build:test", "run:test"));
-gulp.task("build", gulp.series("test", "build:src-release", "pkg", 'postpkg'))
 
 gulp.task('push', function (cb) {
     // if (!argv.m) {
@@ -91,12 +94,12 @@ gulp.task('init', function (cb) {
     if (!argv.r) {
         return cb(new Error("usage: gulp init -r <repo>"))
     }
-    
+
     let index = __dirname.lastIndexOf("/");
     if (index == -1) index = __dirname.lastIndexOf("\\");
     const parentDir = __dirname.slice(index + 1);
     if (parentDir == starter) {
-        return cb(new Error(`${starter} doesn't need to be initialized`))        
+        return cb(new Error(`${starter} doesn't need to be initialized`))
     }
 
     if (fs.existsSync('.init')) {
@@ -110,3 +113,8 @@ gulp.task('init', function (cb) {
     shell.exec(`git push -u origin master`)
     cb();
 })
+
+gulp.task("debug:src", gulp.series("clean", "build:src"));
+gulp.task("debug:test", gulp.series("clean", "build:src", "build:test"));
+gulp.task("test", gulp.series("clean", "build:src", "build:test", "run:test"));
+gulp.task("build", gulp.series("test", "copy:assets", "build:src-release", "pkg", "postpkg"))
