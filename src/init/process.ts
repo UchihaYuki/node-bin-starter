@@ -1,7 +1,8 @@
 import process from 'process';
+import { log, LogLevel } from 'thelog';
 
 export function errorExit(err: any) {
-    console.error(err)
+    log(LogLevel.Error, err);
     exit(1);
 }
 
@@ -22,13 +23,13 @@ process.on('SIGTERM', () => {
 process.on('uncaughtException', (error) => {
     if (error instanceof Error) {
         if (error.stack) {
-            console.error(`process.on('uncaughtException') ${error.stack}`)
+            log(LogLevel.Error,`process.on('uncaughtException') ${error.stack}`)
         } else {
-            console.error(`process.on('uncaughtException') ${error.name}: ${error.message}`)
+            log(LogLevel.Error,`process.on('uncaughtException') ${error.name}: ${error.message}`)
         }
     }
     else {
-        console.error(`process.on('uncaughtException') ${error}`)
+        log(LogLevel.Error,`process.on('uncaughtException') ${error}`)
     }
     // exit(1);
 });
@@ -36,13 +37,13 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
     if (reason instanceof Error) {
         if (reason.stack) {
-            console.error(`process.on('unhandledRejection') ${reason.stack}`)
+            log(LogLevel.Error,`process.on('unhandledRejection') ${reason.stack}`)
         } else {
-            console.error(`process.on('unhandledRejection') ${reason.name}: ${reason.message}`)
+            log(LogLevel.Error,`process.on('unhandledRejection') ${reason.name}: ${reason.message}`)
         }
     }
     else {
-        console.error(`process.on('unhandledRejection') ${reason}`)
+        log(LogLevel.Error,`process.on('unhandledRejection') ${reason}`)
     }
     // exit(1);
 });
